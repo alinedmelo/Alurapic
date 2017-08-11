@@ -1,0 +1,10 @@
+.img-hover {
+    transition: all .2s ease;
+}
+.img-hover:hover {
+    transition: all .2s ease;
+    transform: scale(1.05);
+}
+.img-responsive {
+    min-height: 170px;
+}
