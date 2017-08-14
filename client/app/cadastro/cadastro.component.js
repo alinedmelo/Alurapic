@@ -9,13 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var forms_1 = require('@angular/forms');
-var foto_service_js_1 = require('../foto/foto.service.js');
 var foto_component_1 = require('../foto/foto.component');
+var foto_service_js_1 = require('../foto/foto.service.js');
 var CadastroComponent = (function () {
-    function CadastroComponent(service, fb) {
+    function CadastroComponent(service, fb, route, router) {
+        var _this = this;
         this.foto = new foto_component_1.FotoComponent();
+        this.mensagem = '';
+        this.route = route;
+        this.router = router;
         this.service = service;
+        this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            console.log(id);
+            if (id) {
+                _this.service.buscaId(id).subscribe(function (foto) {
+                    _this.foto = foto;
+                }, function (erro) { return console.log(erro); });
+            }
+        });
         this.meuForm = fb.group({
             titulo: ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             url: ['', forms_1.Validators.required],
@@ -26,19 +40,25 @@ var CadastroComponent = (function () {
         var _this = this;
         event.preventDefault();
         console.log(this.foto);
-        console.log(this.foto._id);
-        this.service.cadastrar(this.foto).subscribe(function () {
-            console.log('Foto cadastrada com sucesso');
+        this.service.cadastrar(this.foto).subscribe(function (res) {
+            _this.mensagem = res.mensagem;
             _this.foto = new foto_component_1.FotoComponent();
-        }, function (erro) { return console.log(erro); });
+            if (!res.inclusao) {
+                _this.router.navigate(['']);
+            }
+        }, function (erro) {
+            console.log(erro);
+            _this.mensagem = 'Não foi possível salvar a foto, tente novamente';
+        });
     };
     CadastroComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'cadastro',
-            templateUrl: './cadastro.component.html'
+            templateUrl: './cadastro.component.html',
+            styleUrls: ['./cadastro.component.css']
         }), 
-        __metadata('design:paramtypes', [foto_service_js_1.FotoService, forms_1.FormBuilder])
+        __metadata('design:paramtypes', [foto_service_js_1.FotoService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
     ], CadastroComponent);
     return CadastroComponent;
 }());

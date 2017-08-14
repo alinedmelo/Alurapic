@@ -4,3 +4,11 @@
 .row {
     margin: 0;
 }
+.botoes {
+    display: flex;
+    justify-content: space-between;
+}
+botao {
+    width: 45%;
+}
+

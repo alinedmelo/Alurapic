@@ -6,7 +6,7 @@ import { FotoComponent } from './foto/foto.component';
 const appRoutes: Routes  = [
   { path: '', component: ListagemComponent },
   { path: 'cadastro', component: CadastroComponent },
-  { path: 'cadastro/:_id', component: CadastroComponent },
+  { path: 'cadastro/:id', component: CadastroComponent },
   { path: '**', redirectTo: ''}
 ];
 

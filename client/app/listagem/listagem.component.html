@@ -1,10 +1,10 @@
 <div class="jumbotron">
     <h1 class="text-center">Alurapic</h1>
 </div>
-<div class="container">
-    <p *ngIf="mensagem.length" class="alert alert-success">{{mensagem}}</p>
+<div class="conteudo">
     <div class="row">
         <div class="col-md-12">
+            <p *ngIf="mensagem.length" class="alert alert-info">{{mensagem}}</p>
             <form>
                  <div class="input-group">
                     <span class="input-group-btn">
@@ -21,11 +21,15 @@
     <br>
 
     <div class="row">
-        <painel *ngFor="let foto of fotos | filtroPorTitulo: textoProcurado.value" titulo="{{foto.titulo | uppercase}}"  class="col-md-3">
-            <a [routerLink]="['cadastro']">
+        <painel #painel *ngFor="let foto of fotos | filtroPorTitulo: textoProcurado.value" titulo="{{foto.titulo | uppercase}}"  class="col-md-2">
+            <div class="thumbnail">
                 <foto titulo="{{foto.titulo}}" url="{{foto.url}}"></foto>
-            </a>
-            <button class="btn btn-danger btn-block margin-top" (click)="remove(foto)">Excluir</button>
+            </div>
+            <div class="botoes margin-top">
+                <botao [routerLink]="['cadastro', foto._id]" nome="Editar" estilo="btn-primary btn-block"></botao>
+                <botao nome="Remover" estilo="btn-danger btn-block" (acao)="remove(foto, painel)" confirmacao="true"></botao>
+                <!--<button class="btn btn-danger col-md-5" (click)="remove(foto)">Excluir</button>-->
+            </div>
         </painel>
     </div><!-- fim row -->
 </div>

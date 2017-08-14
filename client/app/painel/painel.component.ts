@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { FiltroPorTitulo } from '../foto/foto.pipes';
 
 @Component({
@@ -10,11 +10,21 @@ import { FiltroPorTitulo } from '../foto/foto.pipes';
 export class PainelComponent implements OnInit {
     
     @Input() titulo: string;
+    elemento: ElementRef;
+
+    constructor(elemento: ElementRef) {
+        this.elemento = elemento;
+    }
 
     ngOnInit() {
         this.titulo = this.titulo.length > 20 ?
              this.titulo.substr(0, 20) + '...' : 
              this.titulo;
+    }
+
+    fadeOut(callback) {
+
+        $(this.elemento.nativeElement).fadeOut(callback);
     }
     
 }

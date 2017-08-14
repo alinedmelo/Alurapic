@@ -1,0 +1,40 @@
+body, html, .content {
+    height: 100%;
+}  
+.content {
+    display: flex;
+}
+.content > .col-md-10 {
+    min-height: 100vh;
+}
+.barra-menu {
+    min-height: 100%;
+    padding: 2em 0;
+    background-color: #131212;
+    box-shadow: 6px 0px 20px 5px rgba(0, 0, 0, 0.25);
+    z-index: 999;
+}
+.nav>li>a {
+    padding: 1em 3em;
+}
+.nav>li:before {
+    width: 5px;
+    border-left-width: 5px;
+    border-left-color: red;
+    border-left-style: solid;
+    background-color: red;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: #242627;
+}
+.padding-remove {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.jumbotron {
+    z-index: -10;
+}
+.conteudo {
+    padding-left: 3em;
+    padding-right: 3em;
+}
